@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block title %} Sign In {% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <div class="row justify-content-center">
+        
+        <div class="col-12 col-lg-5">
+
+            <div class="card shadow">
+
+                <div class="card-body">
+
+                    <h5 class="card-title fs-3">Sign In</h5>
+
+                    <p class="card-text text-muted">
+                        If you have not created a account yet, then please
+                        <a class="text-decoration-none" href="{% url "account_signup" %}">signup</a>
+                        first.
+                    </p>
+
+                    {% include "includes/errors.html" %}
+
+                    <form class="row g-3" method="post" action="{% url "account_login" %}">
+
+                        {% csrf_token %}
+                        
+                        {% for field in form %}
+                        <div class="col-12">
+                            {% if field.field.widget.input_type == "checkbox" %}
+                            <div class="form-check">
+                                {% render_field field class="form-check-input" %}
+                                <label class="form-check-label" for="{{ field.id_for_label }}">
+                                    {{ field.label }}
+                                </label>
+                            </div>
+                            {% else %}
+                            {% render_field field class="form-control" %}
+
+                                {% if field.errors %}
+                                <ul class="mb-0">
+                                    {% for error in field.errors %}
+                                    <li class="text-muted">{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
+
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Sign In</button>
+                        </div>
+
+                    </form>
+                    
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock content %}

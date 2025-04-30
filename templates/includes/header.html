@@ -1,0 +1,60 @@
+{% load static %}
+
+<header class="mb-3">
+
+    <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
+
+        <div class="container-fluid">
+
+            <a class="navbar-brand" href="{% url "home" %}">
+                <img src="{% static "images/logo.svg" %}" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                Project Title
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div id="navbarContent" class="collapse navbar-collapse">
+
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+                    {% if request.user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" href="{% url "home" %}">Home</a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+
+                        <a class="nav-link active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="{{ user.profile.avatar }}" alt="profile" width="29" height="29" class="d-inline-block rounded-circle">
+                            {{ user.profile.name }}
+                        </a>
+
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="{% url "profile" %}">Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url "profile-edit" %}">Edit Profile</a></li>
+                            <li><a class="dropdown-item" href="{% url "profile-settings" %}">Settings</a></li>
+                            <li><a class="dropdown-item" href="{% url "account_logout" %}">Log Out</a></li>
+                        </ul>
+
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'account_login' %}active{% endif %}" href="{% url "account_login" %}">Sign In</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.resolver_match.url_name == 'account_signup' %}active{% endif %}" href="{% url "account_signup" %}?next={% url 'profile-onboarding' %}">Sign Up</a>
+                    </li>
+                    {% endif %}
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+</header>

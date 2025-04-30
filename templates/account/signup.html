@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block title %} Sign Up {% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <div class="row justify-content-center">
+
+        <div class="col-12 col-lg-6">
+
+            <div class="card shadow">
+                
+                <div class="card-body">
+
+                    <h5 class="card-title fs-3">Sign Up</h5>
+
+                    <p class="card-text text-muted">
+                        Already have an account? Then please
+                        <a class="text-decoration-none" href="{% url "account_login" %}">sign in</a>.
+                    </p>
+
+                    {% include "includes/errors.html" %}
+
+                    <form class="row g-3" method="post" action="{% url "account_signup" %}?next={% url 'profile-onboarding' %}">
+
+                        {% csrf_token %}
+
+                        {% for field in form %}
+                        <div class="col-12">
+
+                            {% render_field field class="form-control" %}
+
+                            {% if field.errors %}
+                            <ul class="mb-0">
+                                {% for error in field.errors %}
+                                <li class="text-muted">{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% endif %}
+
+                        </div>
+                        {% endfor %}
+
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Sign Up</button>
+                        </div>
+
+                    </form>
+                    
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock content %}

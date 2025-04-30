@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %} Delete {% endblock title %}
+
+{% block content %}
+<div class="container">
+
+    <div class="row justify-content-center">
+
+        <div class="col-12 col-lg-6">
+
+            <div class="card shadow">
+
+                <div class="card-body">
+                    <h5 class="card-title fs-3">Delete Account</h5>
+
+                    <p class="card-text text-muted">Are you sure you want to delete your account ?</p>
+                    
+                    <form method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Yes, I want to delete my account</button>
+                        <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-secondary">Cancel</a>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

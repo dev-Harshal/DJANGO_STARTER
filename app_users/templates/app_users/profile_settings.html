@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %} Settings {% endblock title %}
+
+{% block content %}
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+
+            <div class="col-12 col-lg-6">
+
+                <div class="card shadow">
+
+                    <div class="card-body">
+
+                        <h5 class="card-title fs-3">Account Settings</h5>
+
+                        <div class="table-responsive">
+
+                            <table class="table table-sm  table-borderless text-start">
+                                <tbody>
+                                    
+                                    <tr>
+                                        <th scope="row" class="pt-4 pb-1 fw-bold">Email Address</th>
+                                        <td id="email-address" class="pt-4 pb-1 ps-4">
+                                            {% if user.email %}{{ user.email }}{% else %}No Email{% endif %}
+                                        </td>
+                                        <td class="pt-4 pb-1 ps-4">
+                                            <a id="email-edit" class="btn btn-primary fw-medium text-decoration-none"
+                                                href="#"
+                                                hx-get="{% url 'profile-emailchange' %}"
+                                                hx-target="#email-address"
+                                                hx-swap="innerHTML">
+                                                Edit
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="border-bottom">
+                                        <th scope="row" class="pb-4 fw-medium">  
+                                        </th>
+                                        <td class="pb-4 ps-4">
+                                            {% if user.emailaddress_set.first.verified %}
+                                            <span class="text-success fw-medium">Verified</span>{% else %}
+                                            <span class="text-warning fw-medium">Not verified</span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="pb-4 ps-4">
+                                            <a href="{% url "profile-emailverify" %}" class="fw-medium text-decoration-none">
+                                                {% if not user.emailaddress_set.first.verified %}Verify{% endif %}
+                                            </a>
+                                        </td>
+                                    </tr>
+
+
+                                    <tr class="">
+                                        <th scope="row" class="py-4 fw-bold">
+                                            Delete Account
+                                        </th>
+                                        <td class="py-4 ps-4">
+                                            Once deleted, account is gone. Forever.
+                                        </td>
+                                        <td class="py-4 ps-4">
+                                            <a href="{% url "profile-delete" %}" class="btn btn-danger fw-medium text-decoration-none">
+                                                Delete
+                                            </a>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    
+                    </div>
+
+                </div>
+
+            </div>
+            
+        </div>
+
+    </div>
+
+{% endblock content %}

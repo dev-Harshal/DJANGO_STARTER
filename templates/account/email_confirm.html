@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %} Verify {% endblock title %}
+
+{% block content %}
+<div class="container">
+
+    <div class="row justify-content-center">
+
+        <div class="col-12 col-lg-6">
+
+            <div class="card shadow">
+
+                <div class="card-body">
+
+                    <h5 class="card-title fs-3">Confirm Email Address</h5>
+
+                    {% if confirmation %}
+                    <p class="card-text text-muted">
+                        Please confirm that <strong>{{ confirmation.email_address.email }}</strong> is your email address.
+                    </p>
+
+                    <form method="post" action="{% url 'account_confirm_email' confirmation.key %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success">Confirm</button>
+                    </form>
+                    {% else %}
+                    <p class="card-text text-muted">This confirmation link has expired or is invalid.</p>
+
+                    <a href="{% url "profile-settings" %}" class="btn btn-secondary">Cancel</a>
+                    {% endif %}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}

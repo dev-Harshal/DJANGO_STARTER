@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %} Profile {% endblock title %}
+
+{% block content %}
+<div class="container">
+
+    <div class="row justify-content-center">
+
+        <div class="col-12 col-lg-4">
+
+            <div class="card shadow text-center">
+
+                <div class="card-body">
+
+                    <img src="{{ profile.avatar }}" alt="profile" width="120" height="120" class="rounded-circle mx-auto d-block mb-2">
+
+                    <h5 class="card-title mb-0">{{ profile.name }}</h5>
+
+                    <p class="card-text text-muted mb-2">@{{ profile.user.username }}</p>
+
+                    {% if profile.info %}
+                    <p>{{ profile.info }}</p>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    
+</div>
+{% endblock content %}

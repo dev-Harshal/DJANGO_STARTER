@@ -1,0 +1,15 @@
+<form action="{% url 'profile-emailchange' %}" method="post" class="d-flex flex-nowrap align-items-center gap-2" autocomplete="off">
+
+    {% csrf_token %}
+
+    {% for field in form %}
+    <div class="flex-grow-1" style="min-width: 200px;">{{ field }}</div>
+    {% endfor %}
+
+    <button class="btn btn-dark" type="submit">Submit</button>
+
+</form>
+
+<a hx-swap-oob="true" id="email-edit" href="{% url 'profile-settings' %}" class="fw-medium text-decoration-none d-block mt-2">
+    Cancel
+</a>
